@@ -5,12 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
     <meta name="theme-color" content="#f6efe0" />
     <title>Grammar Voyage</title>
+    <!-- The first server call can only start once the app's script has run; the connection to the server opens meanwhile. -->
+    <link rel="preconnect" href="https://fnldlfbuergojasvkckn.supabase.co/functions/v1/api" crossorigin />
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script type="module" crossorigin src="./assets/index-DRrZm0Vx.js"></script>
-    <link rel="modulepreload" crossorigin href="./assets/react-CEmVJy9z.js">
-    <link rel="stylesheet" crossorigin href="./assets/index-C73gr85W.css">
+    <!-- Something to look at before anything else has been downloaded: the paper in the right colour (the player's own
+         choice, else Telegram's scheme, else the system's; the same order as applyTheme in src/lib/util.ts) and a spinner. -->
+    <script>
+      try {
+        var theme = JSON.parse(localStorage.getItem('gv.prefs') || '{}').theme
+        var tg = window.Telegram && window.Telegram.WebApp
+        var dark = theme === 'dark' || (theme !== 'light' && (tg && tg.initData ? tg.colorScheme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches))
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light'
+      } catch (e) {}
+    </script>
+    <style>
+      html { background: #f6efe0; }
+      html[data-theme='dark'] { background: #141a24; }
+      .boot { position: fixed; inset: 0; display: grid; place-items: center; }
+      .boot i { width: 42px; height: 42px; border-radius: 50%; border: 5px solid rgba(128, 128, 128, 0.25); border-top-color: #e4572e; animation: boot 0.8s linear infinite; }
+      @keyframes boot { to { transform: rotate(360deg); } }
+    </style>
+    <script type="module" crossorigin src="./assets/index-kjj7M_xO.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/react--ChnyLr2.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-BTEX46BU.css">
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><div class="boot"><i></i></div></div>
   </body>
 </html>
